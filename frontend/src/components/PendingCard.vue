@@ -8,6 +8,7 @@
       </v-card-text>
 
       <v-card-actions>
+        <v-btn color="error" @click="deleteOrder">Elimina</v-btn>
         <v-spacer> </v-spacer>
 
         <v-btn icon @click="show = !show">
@@ -34,6 +35,7 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 import OrderItem from "../components/OrderItem";
 
 export default {
@@ -57,6 +59,15 @@ export default {
           total + article.cartQuantity * parseFloat(article.unitPrice),
         0
       );
+    }
+  },
+  methods: {
+    ...mapActions("orders", ["removeOrder"]),
+    deleteOrder() {
+      confirm("Sei sicuro di voler eliminare questo ordine?") &&
+        this.$axios
+          .delete(`/orders/${this.order.id}`)
+          .then(() => this.removeOrder(this.order.id));
     }
   }
 };

@@ -26,4 +26,10 @@ module.exports = (router) => {
         ],
         order.update
     )
+
+    router.delete(
+        "/orders/:orderID",
+        token.authenticateToken,
+        order.delete
+    )
 }

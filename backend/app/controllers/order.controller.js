@@ -50,10 +50,21 @@ exports.update = async (req, res) => {
     const order = await Order.findByPk(req.params.orderID)
 
     if (!order)
-        return res.status(404)
+        return res.sendStatus(404)
 
     order.articles = req.body.articles
     await order.save()
 
     res.status(202).json(order)
+}
+
+exports.delete = async (req, res) => {
+    const order = await Order.findByPk(req.params.orderID)
+
+    if (!order)
+        return res.sendStatus(404)
+
+    order.destroy()
+
+    res.sendStatus(204)
 }
