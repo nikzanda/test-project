@@ -22,7 +22,7 @@ module.exports = (router) => {
         "/orders/:orderID",
         token.authenticateToken,
         [
-            check("articles").isArray()
+            check("articles").isArray().optional()
         ],
         order.update
     )

@@ -52,7 +52,17 @@ exports.update = async (req, res) => {
     if (!order)
         return res.sendStatus(404)
 
-    order.articles = req.body.articles
+    if (req.body.articles)
+        order.articles = req.body.articles
+
+    if (req.body.status === "settled") {
+        order.status = req.body.status
+
+        JSON.parse(order.articles).forEach(article => {
+            Article.increment('quantity', { by: article.quantity * -1, where: { id: article.id } })
+        })
+    }//if
+
     await order.save()
 
     res.status(202).json(order)

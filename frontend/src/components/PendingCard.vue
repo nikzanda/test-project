@@ -9,6 +9,8 @@
 
       <v-card-actions>
         <v-btn color="error" @click="deleteOrder">Elimina</v-btn>
+        <v-btn color="success" @click="checkout">Checkout</v-btn>
+
         <v-spacer> </v-spacer>
 
         <v-btn icon @click="show = !show">
@@ -68,6 +70,9 @@ export default {
         this.$axios
           .delete(`/orders/${this.order.id}`)
           .then(() => this.removeOrder(this.order.id));
+    },
+    checkout() {
+
     }
   }
 };
