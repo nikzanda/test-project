@@ -3,6 +3,10 @@
     <v-card>
       <v-card-title> Ordine n. {{ order.id }} </v-card-title>
 
+      <v-card-text>
+        <h3>Totale: {{ total }} €</h3>
+      </v-card-text>
+
       <v-card-actions>
         <v-spacer> </v-spacer>
 
@@ -45,6 +49,15 @@ export default {
   },
   data: () => ({
     show: false
-  })
+  }),
+  computed: {
+    total() {
+      return this.order.articles.reduce(
+        (total, article) =>
+          total + article.cartQuantity * parseFloat(article.unitPrice),
+        0
+      );
+    }
+  }
 };
 </script>
