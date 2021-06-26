@@ -18,7 +18,7 @@ export default {
     loadPendingOrders() {
       this.loading = true;
 
-      this.$axios("/orders/")
+      this.$axios("/orders/?status=pending")
         .then(({ data }) => {
           this.orders = data;
         })
