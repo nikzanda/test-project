@@ -11,7 +11,7 @@ export const mutations = {
         state.orders = orders
     },
     REMOVE_ARTICLE(state, { orderID, articleID }) {
-        const index = state.orders.find(order => order.id === orderID)
+        const index = state.orders.findIndex(order => order.id === orderID)
         if (index >= 0)
             state.orders[index].articles = state.orders[index].articles.filter(article => article.id !== articleID)
     }
@@ -23,8 +23,9 @@ export const actions = {
             .then(({ data }) => commit("SET_ORDERS", data))
             .catch(error => console.log(error.response))
     },
-    removeArticle({ commit }, orderID, articleID) {
-        commit("REMOVE_ARTICLE", orderID, articleID)
+    removeArticle({ commit }, { orderID, articleID }) {
+        console.log(orderID, articleID)
+        commit("REMOVE_ARTICLE", { orderID, articleID })
     }
 }
 

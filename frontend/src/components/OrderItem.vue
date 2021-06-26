@@ -34,7 +34,10 @@ export default {
           articles: articles.filter(article => article.id !== this.item.id)
         })
         .then(() => {
-          this.removeArticle(this.orderID, this.item.id);
+          this.removeArticle({
+            orderID: this.orderID,
+            articleID: this.item.id
+          });
         })
         .catch(error => console.log(error.response));
     }
