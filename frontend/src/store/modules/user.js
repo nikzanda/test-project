@@ -19,11 +19,14 @@ export const mutations = {
 }
 
 export const actions = {
-    login({ commit }, { email, password }) {
+    login({ commit, dispatch }, { email, password }) {
         return Vue.prototype.$axios.post("/login", {
             email: email,
             password: password
-        }).then(({ data }) => commit("SET_USER_DATA", data))
+        }).then(({ data }) => {
+            commit("SET_USER_DATA", data)
+            dispatch('orders/setOrders', null, { root: true })
+        })
     },
     logout({ commit }) {
         commit("CLEAR_USER_DATA")
