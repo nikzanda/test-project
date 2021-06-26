@@ -1,13 +1,13 @@
-const db = require("../models");
-const User = db.users;
-const jwt = require("jsonwebtoken");
-const { validationResult } = require("express-validator");
+const db = require("../models")
+const User = db.users
+const jwt = require("jsonwebtoken")
+const { validationResult } = require("express-validator")
 
 exports.login = async (req, res) => {
-    const errors = validationResult(req);
+    const errors = validationResult(req)
 
     if (!errors.isEmpty())
-        return res.status(422).send({ errors: errors.array() });
+        return res.status(422).send({ errors: errors.array() })
 
     const user = await User.findOne({
         where: {
