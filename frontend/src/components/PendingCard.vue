@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    {{ order }}
+    test
   </v-card>
 </template>
 

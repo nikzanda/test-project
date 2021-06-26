@@ -52,7 +52,7 @@ exports.update = async (req, res) => {
     if (!order)
         return res.status(404)
 
-    order.articles = JSON.stringify(req.body.articles)
+    order.articles = req.body.articles
     await order.save()
 
     res.status(202).json(order)
