@@ -15,14 +15,18 @@
         icon
         @click="changeQuantity(false)"
         :disabled="item.cartQuantity < 2"
+        :loading="loading"
       >
         <v-icon color="error">mdi-minus</v-icon>
       </v-btn>
+
       <span>{{ item.cartQuantity }}</span>
+
       <v-btn
         icon
         @click="changeQuantity(true)"
         :disabled="item.cartQuantity >= item.quantity"
+        :loading="loading"
       >
         <v-icon color="success">mdi-plus</v-icon>
       </v-btn>
@@ -45,16 +49,25 @@ export default {
       required: true
     }
   },
+  data: () => ({
+    loading: false
+  }),
   computed: mapGetters("orders", ["order"]),
   methods: {
     ...mapActions("orders", ["updateArticleQuantity", "removeArticle"]),
     changeQuantity(add) {
+      this.loading = true;
       const n = 1 * (add ? 1 : -1);
       this.updateArticleQuantity({
         orderID: this.orderID,
         articleID: this.item.id,
         cartQuantity: this.item.cartQuantity + n
       });
+      this.$axios
+        .put(`/orders/${this.orderID}`, {
+          articles: this.order(this.orderID)?.articles
+        })
+        .finally(() => (this.loading = false));
     },
     removeItem() {
       const articles = this.order(this.orderID)?.articles || [];
