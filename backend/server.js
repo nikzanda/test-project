@@ -12,7 +12,7 @@ app.use(bodyParser.json()); // content-type: application/json
 app.use(bodyParser.urlencoded({ extended: true })); // content-type: application/x-www-form-urlencoded
 
 const db = require("./app/models");
-db.sequelize.sync({ alter: true });
+db.sequelize.sync(); // { alter: true }
 
 require("./app/routes/user.routes.js")(app);
 require("./app/routes/article.routes.js")(app);

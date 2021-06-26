@@ -1,5 +1,6 @@
 <template>
   <v-app>
+    <Navbar v-if="isLogged" />
     <v-main>
       <router-view />
     </v-main>
@@ -7,7 +8,14 @@
 </template>
 
 <script>
+import Navbar from "./components/Navbar";
+import { mapGetters } from "vuex";
+
 export default {
-  name: "App"
+  name: "App",
+  components: {
+    Navbar
+  },
+  computed: mapGetters("user", ["isLogged"])
 };
 </script>
