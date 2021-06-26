@@ -11,8 +11,11 @@ app.use(cors());
 app.use(bodyParser.json()); // content-type: application/json
 app.use(bodyParser.urlencoded({ extended: true })); // content-type: application/x-www-form-urlencoded
 
+const db = require("./app/models");
+db.sequelize.sync();
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Environment: ${process.env.NODE_ENV}`);
-  console.log(`Server running on port ${PORT}.`);
+    console.log(`Environment: ${process.env.NODE_ENV}`);
+    console.log(`Server running on port ${PORT}.`);
 });
