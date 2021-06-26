@@ -9,8 +9,19 @@ const router = new Router({
     routes: [
         {
             path: "/",
-            name: "home",
-            component: () => import("./views/Home"),
+            name: "articles",
+            component: () => import("./views/Articles"),
+            children: [
+                {
+                    path: "add-article/:articleID",
+                    name: "addArticle",
+                    props: true,
+                    component: () => import("./views/Add"),
+                    meta: {
+                        requiresAuth: true
+                    }
+                }
+            ],
             meta: {
                 requiresAuth: true
             }

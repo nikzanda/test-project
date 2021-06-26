@@ -27,6 +27,8 @@
         </v-row>
       </template>
     </v-data-iterator>
+
+    <router-view />
   </v-container>
 </template>
 
@@ -34,7 +36,7 @@
 import ArticleCard from "../components/ArticleCard";
 
 export default {
-  name: "Home",
+  name: "Articles",
   components: {
     ArticleCard
   },

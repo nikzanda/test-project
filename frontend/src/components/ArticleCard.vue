@@ -8,7 +8,11 @@
       </v-card-subtitle>
 
       <v-card-actions>
-        <v-btn color="success" small @click="addToCart" :loading="loading">
+        <v-btn
+          color="success"
+          small
+          :to="{ name: 'addArticle', params: { articleID: article.id } }"
+        >
           Aggiungi al carrello
         </v-btn>
       </v-card-actions>
@@ -23,27 +27,6 @@ export default {
     article: {
       type: Object,
       required: true
-    }
-  },
-  data: () => ({
-    loading: false
-  }),
-  methods: {
-    addToCart() {
-      this.loading = true;
-
-      this.$axios
-        .post("/orders/", {
-          articleID: this.article.id,
-          quantity: 1
-        })
-        .then(response => {
-          console.log(response);
-        })
-        .catch(error => {
-          console.log(error.response);
-        })
-        .finally(() => (this.loading = false));
     }
   }
 };

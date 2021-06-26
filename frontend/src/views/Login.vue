@@ -89,7 +89,7 @@ export default {
       })
         .then(() => {
           this.$router.push({
-            name: "home"
+            name: "articles"
           });
         })
         .catch(error => {

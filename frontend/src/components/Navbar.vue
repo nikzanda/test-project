@@ -1,6 +1,6 @@
 <template>
   <v-app-bar app color="deep-purple accent-4" dense elevate-on-scroll dark>
-    <v-btn icon :to="{ name: 'home' }">
+    <v-btn icon :to="{ name: 'articles' }">
       <v-icon>mdi-format-list-bulleted</v-icon>
     </v-btn>
 
