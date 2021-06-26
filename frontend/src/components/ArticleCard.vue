@@ -3,7 +3,8 @@
     <v-card>
       <v-card-title>{{ article.name }}</v-card-title>
       <v-card-subtitle>
-        Quantità disponibile: {{ article.quantity }}
+        Quantità disponibile: {{ article.quantity }} <br />
+        Prezzo a unità: {{ article.unitPrice }} €
       </v-card-subtitle>
 
       <v-card-actions>
