@@ -8,8 +8,10 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn color="error" @click="deleteOrder">Elimina</v-btn>
-        <v-btn color="success" @click="checkout">Checkout</v-btn>
+        <template v-if="order.status === 'pending'">
+          <v-btn color="error" @click="deleteOrder">Elimina</v-btn>
+          <v-btn color="success" @click="checkout">Checkout</v-btn>
+        </template>
 
         <v-spacer> </v-spacer>
 
