@@ -40,3 +40,20 @@ exports.create = async (req, res) => {
     else
         res.status(500).json({ error: { message: "errore" } })
 }
+
+exports.update = async (req, res) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty())
+        return res.status(422).send({ errors: errors.array() })
+
+    const order = await Order.findByPk(req.params.orderID)
+
+    if (!order)
+        return res.status(404)
+
+    order.articles = JSON.stringify(req.body.articles)
+    await order.save()
+
+    res.status(202).json(order)
+}

@@ -17,4 +17,13 @@ module.exports = (router) => {
         ],
         order.create
     )
+
+    router.put(
+        "/orders/:orderID",
+        token.authenticateToken,
+        [
+            check("articles").isArray()
+        ],
+        order.update
+    )
 }
