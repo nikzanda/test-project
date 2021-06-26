@@ -1,9 +1,10 @@
 module.exports = (router) => {
     const article = require("../controllers/article.controller")
-    // const { check } = require("express-validator");
+    const token = require("../middleware/auth.middleware")
 
     router.get(
         "/articles/",
+        token.authenticateToken,
         article.findAll
     )
 }

@@ -17,7 +17,7 @@ exports.login = async (req, res) => {
     })
 
     if (user) {
-        const accessToken = jwt.sign({ email: user.email }, process.env.ACCESS_TOKEN_SECRET, {
+        const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
             expiresIn: process.env.LIFE_ACCESS_TOKEN
         })
         res.status(200).json({ accessToken: accessToken })
