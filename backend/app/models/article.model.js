@@ -2,8 +2,8 @@ module.exports = (sequelize, Sequelize) => {
     const Article = sequelize.define("article", {
         id: {
             primaryKey: true,
-            type: Sequelize.UUID,
-            defaultValue: Sequelize.UUIDV4
+            type: Sequelize.INTEGER,
+            autoIncrement: true
         },
         name: {
             type: Sequelize.STRING
