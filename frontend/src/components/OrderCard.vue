@@ -41,7 +41,7 @@ import { mapActions } from "vuex";
 import OrderItem from "../components/OrderItem";
 
 export default {
-  name: "PendingCard",
+  name: "OrderCard",
   components: {
     OrderItem
   },
