@@ -1,6 +1,5 @@
 const db = require("../models")
 const Order = db.orders
-// const jwt = require("jsonwebtoken")
 const { validationResult } = require("express-validator")
 
 exports.findAll = async (req, res) => {
@@ -16,8 +15,7 @@ exports.create = async (req, res) => {
 
     const order = await Order.create({
         user_id: req.user.id,
-        article_id: req.body.articleID,
-        quantity: req.body.quantity,
+        articles: req.body.articles,
         status: 'pending'
     })
 

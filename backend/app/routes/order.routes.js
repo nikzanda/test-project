@@ -13,8 +13,7 @@ module.exports = (router) => {
         "/orders/",
         token.authenticateToken,
         [
-            check("articleID").isNumeric(),
-            check("quantity").isNumeric({ min: 1 })
+            check("articles").isArray()
         ],
         order.create
     )
