@@ -7,7 +7,9 @@
       </v-card-subtitle>
 
       <v-card-actions>
-        <v-btn color="success" small>Aggiungi al carrello</v-btn>
+        <v-btn color="success" small @click="addToCart">
+          Aggiungi al carrello
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-col>
@@ -20,6 +22,20 @@ export default {
     article: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    addToCart() {
+      this.$axios
+        .post("/orders/", {
+          articleID: this.article.id
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error.response);
+        });
     }
   }
 };

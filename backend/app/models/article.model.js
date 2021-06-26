@@ -15,11 +15,11 @@ module.exports = (sequelize, Sequelize) => {
         }
     })
 
-    Article.create({ name: "Prodotto 1", quantity: 10 })
-    Article.create({ name: "Prodotto 2", quantity: 100 })
-    Article.create({ name: "Prodotto 3", quantity: 14 })
-    Article.create({ name: "Prodotto 4", quantity: 53 })
-    Article.create({ name: "Prodotto 5", quantity: 30 })
+    Article.create({ name: "Switch", quantity: 10 })
+    Article.create({ name: "Computer", quantity: 100 })
+    Article.create({ name: "Raspberry", quantity: 14 })
+    Article.create({ name: "Router", quantity: 53 })
+    Article.create({ name: "Powerline", quantity: 30 })
 
     return Article
 }
