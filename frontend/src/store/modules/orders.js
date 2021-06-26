@@ -21,6 +21,7 @@ export const actions = {
 }
 
 export const getters = {
-    pending: (state) => state.orders.filter(order => order.status === "pending"),
-    settled: (state) => state.orders.filter(order => order.status === "settled")
+    pending: state => state.orders.filter(order => order.status === "pending"),
+    settled: state => state.orders.filter(order => order.status === "settled"),
+    order: state => orderID => state.orders.find(order => order.id === orderID)
 }

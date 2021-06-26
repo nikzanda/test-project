@@ -45,7 +45,7 @@ export default {
     loading: false
   }),
   computed: {
-    ...mapGetters("orders", ["pending"]),
+    ...mapGetters("orders", { pending: "pending", getOrder: "order" }),
     pendingOrders() {
       return this.pending.map(order => order.id);
     }
@@ -57,11 +57,12 @@ export default {
     },
     addToCart() {
       this.loading = true;
+      const article = { id: this.articleID, quantity: 1 };
 
       if (this.radioGroup === 0) {
         this.$axios
           .post("/orders/", {
-            articles: [{ id: this.articleID, quantity: 1 }]
+            articles: [article]
           })
           .then(() => {
             this.dialog = false;
@@ -72,7 +73,28 @@ export default {
           })
           .finally(() => (this.loading = false));
       } else {
-        alert("test2");
+        let articles = this.getOrder(this.order).articles.map(cartArticle => ({
+          id: cartArticle.id,
+          quantity: cartArticle.cartQuantity
+        }));
+
+        const index = articles.findIndex(
+          cartArticle => cartArticle.id == article.id
+        );
+
+        if (index >= 0) articles[index].quantity++;
+        else articles.push(article);
+
+        this.$axios
+          .put(`/orders/${this.order}`, { articles: articles })
+          .then(() => {
+            this.dialog = false;
+            this.$router.push({ name: "cart" });
+          })
+          .catch(error => {
+            console.log(error.response);
+          })
+          .finally(() => (this.loading = false));
       }
     }
   }
