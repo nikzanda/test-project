@@ -25,6 +25,7 @@ new Vue({
     if (userString) {
       const userData = JSON.parse(userString)
       this.$store.commit('user/SET_USER_DATA', userData, { root: true })
+      this.$store.dispatch('orders/setOrders')
     }//if
   },
   render: h => h(App)
