@@ -30,6 +30,7 @@
               :key="article.id"
               :item="article"
               :orderID="order.id"
+              :isPending="order.status === 'pending'"
             />
           </v-card-text>
         </v-card>

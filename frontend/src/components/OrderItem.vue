@@ -1,7 +1,7 @@
 <template>
   <v-row>
     <v-col cols="1">
-      <v-btn icon @click="removeItem">
+      <v-btn icon @click="removeItem" v-if="isPending">
         <v-icon color="error">mdi-close</v-icon>
       </v-btn>
     </v-col>
@@ -16,6 +16,7 @@
         @click="changeQuantity(false)"
         :disabled="item.cartQuantity < 2"
         :loading="loading"
+        v-if="isPending"
       >
         <v-icon color="error">mdi-minus</v-icon>
       </v-btn>
@@ -27,6 +28,7 @@
         @click="changeQuantity(true)"
         :disabled="item.cartQuantity >= item.quantity"
         :loading="loading"
+        v-if="isPending"
       >
         <v-icon color="success">mdi-plus</v-icon>
       </v-btn>
@@ -46,6 +48,10 @@ export default {
     },
     orderID: {
       type: Number,
+      required: true
+    },
+    isPending: {
+      type: Boolean,
       required: true
     }
   },
