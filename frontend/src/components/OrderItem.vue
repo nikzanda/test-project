@@ -65,7 +65,10 @@ export default {
       });
       this.$axios
         .put(`/orders/${this.orderID}`, {
-          articles: this.order(this.orderID)?.articles
+          articles: this.order(this.orderID)?.articles.map(article => ({
+            ...article,
+            quantity: article.cartQuantity
+          }))
         })
         .finally(() => (this.loading = false));
     },
