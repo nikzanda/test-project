@@ -3,8 +3,7 @@ const Order = db.orders
 const { validationResult } = require("express-validator")
 
 exports.findAll = async (req, res) => {
-    const status = ["pending", "settled"].includes(req.query.status || "") ? req.query.status : "pending"
-    res.status(200).json(await Order.findAll({ where: { user_id: req.user.id, status: status } }))
+    res.status(200).json(await Order.findAll({ where: { user_id: req.user.id } }))
 }
 
 exports.create = async (req, res) => {
