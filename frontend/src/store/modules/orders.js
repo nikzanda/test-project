@@ -9,6 +9,11 @@ export const state = {
 export const mutations = {
     SET_ORDERS(state, orders) {
         state.orders = orders
+    },
+    REMOVE_ARTICLE(state, { orderID, articleID }) {
+        const index = state.orders.find(order => order.id === orderID)
+        if (index >= 0)
+            state.orders[index].articles = state.orders[index].articles.filter(article => article.id !== articleID)
     }
 }
 
@@ -17,6 +22,9 @@ export const actions = {
         Vue.prototype.$axios("/orders/")
             .then(({ data }) => commit("SET_ORDERS", data))
             .catch(error => console.log(error.response))
+    },
+    removeArticle({ commit }, orderID, articleID) {
+        commit("REMOVE_ARTICLE", orderID, articleID)
     }
 }
 

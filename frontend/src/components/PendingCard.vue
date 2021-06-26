@@ -16,9 +16,12 @@
           <v-divider></v-divider>
 
           <v-card-text>
-            <div v-for="article in order.articles" :key="article.id">
-              {{ article.name }}
-            </div>
+            <OrderItem
+              v-for="article in order.articles"
+              :key="article.id"
+              :item="article"
+              :orderID="order.id"
+            />
           </v-card-text>
         </v-card>
       </v-expand-transition>
@@ -27,8 +30,13 @@
 </template>
 
 <script>
+import OrderItem from "../components/OrderItem";
+
 export default {
   name: "PendingCard",
+  components: {
+    OrderItem
+  },
   props: {
     order: {
       type: Object,
