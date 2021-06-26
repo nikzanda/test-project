@@ -2,7 +2,9 @@
   <v-container fluid>
     <h1 class="text-center">Carrello</h1>
 
-    <PendingCard v-for="order in pending" :key="order.id" />
+    <v-row>
+      <PendingCard v-for="order in pending" :key="order.id" :order="order" />
+    </v-row>
   </v-container>
 </template>
 
