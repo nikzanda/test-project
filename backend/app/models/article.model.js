@@ -12,14 +12,19 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             defaultValue: 0
+        },
+        unitPrice: {
+            type: Sequelize.DECIMAL(10, 2),
+            allowNull: false,
+            defaultValue: 0
         }
     })
 
-    Article.create({ name: "Switch", quantity: 10 })
-    Article.create({ name: "Computer", quantity: 100 })
-    Article.create({ name: "Raspberry", quantity: 14 })
-    Article.create({ name: "Router", quantity: 53 })
-    Article.create({ name: "Powerline", quantity: 30 })
+    Article.create({ name: "Switch", quantity: 10, unitPrice: 25.5 })
+    Article.create({ name: "Computer", quantity: 100, unitPrice: 650.0 })
+    Article.create({ name: "Raspberry", quantity: 14, unitPrice: 60.0 })
+    Article.create({ name: "Router", quantity: 53, unitPrice: 40.0 })
+    Article.create({ name: "Powerline", quantity: 30, unitPrice: 50.0 })
 
     return Article
 }
