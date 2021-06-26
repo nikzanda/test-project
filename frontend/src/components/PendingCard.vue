@@ -72,7 +72,11 @@ export default {
           .then(() => this.removeOrder(this.order.id));
     },
     checkout() {
-
+      this.$axios
+        .put(`/orders/${this.order.id}`, {
+          status: "settled"
+        })
+        .then(() => this.$router.push({ name: "orders" }));
     }
   }
 };
