@@ -20,7 +20,9 @@
       <v-card-actions>
         <v-spacer></v-spacer>
         <v-btn color="error" @click="cancel">Annulla</v-btn>
-        <v-btn color="success" @click="addToCart">Aggiungi</v-btn>
+        <v-btn color="success" @click="addToCart" :loading="loading">
+          Aggiungi
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -39,7 +41,8 @@ export default {
   data: () => ({
     dialog: true,
     radioGroup: 0,
-    order: null
+    order: null,
+    loading: false
   }),
   computed: {
     ...mapGetters("orders", ["pending"]),
@@ -53,8 +56,24 @@ export default {
       this.$router.push({ name: "articles" });
     },
     addToCart() {
-      this.dialog = false;
-      this.$router.push({ name: "articles" });
+      this.loading = true;
+
+      if (this.radioGroup === 0) {
+        this.$axios
+          .post("/orders/", {
+            articles: [{ id: this.articleID, quantity: 1 }]
+          })
+          .then(() => {
+            this.dialog = false;
+            this.$router.push({ name: "cart" });
+          })
+          .catch(error => {
+            console.log(error.response);
+          })
+          .finally(() => (this.loading = false));
+      } else {
+        alert("test2");
+      }
     }
   }
 };
