@@ -10,6 +10,15 @@ export const mutations = {
     SET_ORDERS(state, orders) {
         state.orders = orders
     },
+    UPDATE_ARTICLE_QUANTITY(state, { orderID, articleID, cartQuantity }) {
+        const orderIndex = state.orders.findIndex(order => order.id === orderID)
+        if (orderIndex < 0)
+            return
+
+        const articleIndex = state.orders[orderIndex].articles.findIndex(article => article.id === articleID)
+        if (articleIndex >= 0)
+            state.orders[orderIndex].articles[articleIndex].cartQuantity = cartQuantity
+    },
     REMOVE_ARTICLE(state, { orderID, articleID }) {
         const index = state.orders.findIndex(order => order.id === orderID)
         if (index >= 0)
@@ -23,8 +32,10 @@ export const actions = {
             .then(({ data }) => commit("SET_ORDERS", data))
             .catch(error => console.log(error.response))
     },
+    updateArticleQuantity({ commit }, { orderID, articleID, cartQuantity }) {
+        commit("UPDATE_ARTICLE_QUANTITY", { orderID, articleID, cartQuantity })
+    },
     removeArticle({ commit }, { orderID, articleID }) {
-        console.log(orderID, articleID)
         commit("REMOVE_ARTICLE", { orderID, articleID })
     }
 }

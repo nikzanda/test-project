@@ -1,11 +1,33 @@
 <template>
-  <div class="d-flex align-items-center">
-    <v-btn icon @click="removeItem">
-      <v-icon color="error">mdi-close</v-icon>
-    </v-btn>
+  <v-row>
+    <v-col cols="1">
+      <v-btn icon @click="removeItem">
+        <v-icon color="error">mdi-close</v-icon>
+      </v-btn>
+    </v-col>
 
-    <span class="mt-2">{{ item.name }}</span>
-  </div>
+    <v-col cols="4">
+      <span>{{ item.name }}</span>
+    </v-col>
+
+    <v-col>
+      <v-btn
+        icon
+        @click="changeQuantity(false)"
+        :disabled="item.cartQuantity < 2"
+      >
+        <v-icon color="error">mdi-minus</v-icon>
+      </v-btn>
+      <span>{{ item.cartQuantity }}</span>
+      <v-btn
+        icon
+        @click="changeQuantity(true)"
+        :disabled="item.cartQuantity >= item.quantity"
+      >
+        <v-icon color="success">mdi-plus</v-icon>
+      </v-btn>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
@@ -25,7 +47,15 @@ export default {
   },
   computed: mapGetters("orders", ["order"]),
   methods: {
-    ...mapActions("orders", ["removeArticle"]),
+    ...mapActions("orders", ["updateArticleQuantity", "removeArticle"]),
+    changeQuantity(add) {
+      const n = 1 * (add ? 1 : -1);
+      this.updateArticleQuantity({
+        orderID: this.orderID,
+        articleID: this.item.id,
+        cartQuantity: this.item.cartQuantity + n
+      });
+    },
     removeItem() {
       const articles = this.order(this.orderID)?.articles || [];
 
