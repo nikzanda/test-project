@@ -1,6 +1,7 @@
 module.exports = (router) => {
     const order = require("../controllers/order.controller")
-    const { check } = require("express-validator");
+    const token = require("../middleware/auth.middleware")
+    const { check } = require("express-validator")
 
     // router.get(
     //     "/articles/",
@@ -9,6 +10,7 @@ module.exports = (router) => {
 
     router.post(
         "/orders/",
+        token.authenticateToken,
         [
             check("articleID").isNumeric(),
             check("quantity").isNumeric({ min: 1 })

@@ -1,9 +1,29 @@
 <template>
-  <h1>carrello</h1>
+  <v-container fluid>
+    <h1 class="text-center">Carrello</h1>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: "Cart"
+  name: "Cart",
+  data: () => ({
+    orders: [],
+    loading: false
+  }),
+  mounted() {
+    this.loadPendingOrders();
+  },
+  methods: {
+    loadPendingOrders() {
+      this.loading = true;
+
+      this.$axios("/orders/")
+        .then(({ data }) => {
+          this.orders = data;
+        })
+        .finally(() => (this.loading = false));
+    }
+  }
 };
 </script>

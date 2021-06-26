@@ -10,7 +10,7 @@ exports.create = async (req, res) => {
         return res.status(422).send({ errors: errors.array() })
 
     const order = await Order.create({
-        user_id: 1,
+        user_id: req.user.id,
         article_id: req.body.articleID,
         quantity: req.body.quantity,
         status: 'pending'
