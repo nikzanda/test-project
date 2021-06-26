@@ -16,6 +16,22 @@ const router = new Router({
             }
         },
         {
+            path: "/cart",
+            name: "cart",
+            component: () => import("./views/Cart"),
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: "/my-orders",
+            name: "orders",
+            component: () => import("./views/Orders"),
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
             path: "/login",
             name: "login",
             component: () => import("./views/Login")
