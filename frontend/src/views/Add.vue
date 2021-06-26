@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "Add",
   props: {
@@ -51,6 +51,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions("orders", ["setOrders"]),
     cancel() {
       this.dialog = false;
       this.$router.push({ name: "articles" });
@@ -66,6 +67,7 @@ export default {
           })
           .then(() => {
             this.dialog = false;
+            this.setOrders();
             this.$router.push({ name: "cart" });
           })
           .catch(error => {
@@ -89,6 +91,7 @@ export default {
           .put(`/orders/${this.order}`, { articles: articles })
           .then(() => {
             this.dialog = false;
+            this.setOrders();
             this.$router.push({ name: "cart" });
           })
           .catch(error => {
