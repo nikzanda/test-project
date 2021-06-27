@@ -67,7 +67,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("orders", ["removeOrder"]),
+    ...mapActions("orders", ["removeOrder", "setSettled"]),
     deleteOrder() {
       confirm("Sei sicuro di voler eliminare questo ordine?") &&
         this.$axios
@@ -79,7 +79,10 @@ export default {
         .put(`/orders/${this.order.id}`, {
           status: "settled"
         })
-        .then(() => this.$router.push({ name: "orders" }));
+        .then(() => {
+          this.setSettled(this.order.id);
+          this.$router.push({ name: "orders" });
+        });
     }
   }
 };
