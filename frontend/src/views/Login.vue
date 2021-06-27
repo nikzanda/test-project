@@ -94,7 +94,7 @@ export default {
         })
         .catch(error => {
           console.log(error.response);
-          this.error = error;
+          this.error = error.response.data.error.message;
         });
 
       this.loading = false;
