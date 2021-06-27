@@ -4,7 +4,22 @@
       <v-card-title> Ordine n. {{ order.id }} </v-card-title>
 
       <v-card-text>
-        <h3>Totale: {{ total }} €</h3>
+        <div class="d-flex justify-space-between">
+          <h3>Totale: {{ total }} €</h3>
+
+          <v-tooltip top>
+            <template v-slot:activator="{ on, attrs }">
+              <v-icon
+                :color="order.status === 'pending' ? 'warning' : 'success'"
+                v-bind="attrs"
+                v-on="on"
+              >
+                mdi-{{ order.status === "pending" ? "clock" : "check" }}
+              </v-icon>
+            </template>
+            <span>{{ order.status }}</span>
+          </v-tooltip>
+        </div>
       </v-card-text>
 
       <v-card-actions>
@@ -67,7 +82,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions("orders", ["removeOrder"]),
+    ...mapActions("orders", ["removeOrder", "setSettled"]),
     deleteOrder() {
       confirm("Sei sicuro di voler eliminare questo ordine?") &&
         this.$axios
@@ -79,7 +94,10 @@ export default {
         .put(`/orders/${this.order.id}`, {
           status: "settled"
         })
-        .then(() => this.$router.push({ name: "orders" }));
+        .then(() => {
+          this.setSettled(this.order.id);
+          this.$router.push({ name: "orders" });
+        });
     }
   }
 };

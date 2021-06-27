@@ -10,6 +10,11 @@ export const mutations = {
     SET_ORDERS(state, orders) {
         state.orders = orders
     },
+    SET_SETTLED(state, orderID) {
+        const index = state.orders.findIndex(order => order.id === orderID)
+        if (index >= 0)
+            state.orders[index].status = "settled"
+    },
     UPDATE_ARTICLE_QUANTITY(state, { orderID, articleID, cartQuantity }) {
         const orderIndex = state.orders.findIndex(order => order.id === orderID)
         if (orderIndex < 0)
@@ -34,6 +39,9 @@ export const actions = {
         Vue.prototype.$axios("/orders/")
             .then(({ data }) => commit("SET_ORDERS", data))
             .catch(error => console.log(error.response))
+    },
+    setSettled({ commit }, orderID) {
+        commit("SET_SETTLED", orderID)
     },
     updateArticleQuantity({ commit }, { orderID, articleID, cartQuantity }) {
         commit("UPDATE_ARTICLE_QUANTITY", { orderID, articleID, cartQuantity })

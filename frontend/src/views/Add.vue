@@ -14,6 +14,9 @@
           v-model="order"
           label="Ordini aperti"
           :items="pendingOrders"
+          auto-select-first
+          :error="error"
+          :error-messages="errorText"
         ></v-autocomplete>
       </v-card-text>
 
@@ -42,7 +45,9 @@ export default {
     dialog: true,
     radioGroup: 0,
     order: null,
-    loading: false
+    loading: false,
+    error: null,
+    errorText: ""
   }),
   computed: {
     ...mapGetters("orders", { pending: "pending", getOrder: "order" }),
@@ -75,6 +80,16 @@ export default {
           })
           .finally(() => (this.loading = false));
       } else {
+        if (!this.order) {
+          this.error = true;
+          this.errorText = "Devi selezionare un ordine";
+          this.loading = false;
+          return;
+        }
+
+        this.error = null;
+        this.errorText = "";
+
         let articles = this.getOrder(this.order).articles.map(cartArticle => ({
           id: cartArticle.id,
           quantity: cartArticle.cartQuantity
